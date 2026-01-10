@@ -5,17 +5,16 @@
   --nav-h: 64px;
   --accent: #d23b3b;
 
-  /* Desktop: menu takes ~50% so hero remains visible */
+  /* Menu width */
   --menu-w-desktop: 50vw;
-  /* Mobile: menu takes most of screen */
   --menu-w-mobile: 86vw;
 
   --shadow: 0 12px 40px rgba(0,0,0,.35);
 
-  /* Menu colors (like your screenshot) */
-  --menu-bg: #4b5158;      /* slate */
-  --menu-bg2: #3f454c;     /* slightly darker */
-  --menu-text: rgba(255,255,255,.90);
+  /* Menu colors (Rijks-like slate) */
+  --menu-bg: #4b5158;
+  --menu-bg2: #3f454c;
+  --menu-text: rgba(255,255,255,.92);
   --menu-dim: rgba(255,255,255,.70);
 }
 
@@ -40,40 +39,7 @@ body{
   border:0;
 }
 
-/* ===== overlay ===== */
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  opacity:0;
-  pointer-events:none;
-  transition: opacity .2s ease;
-  z-index:55;
-}
-
-body.menu-open .overlay,
-body.search-open .overlay{
-  opacity:1;
-  pointer-events:auto;
-}
-
-/* ===== push layout for menu ===== */
-.layout{
-  transition: transform .35s ease;
-  will-change: transform;
-}
-
-body.menu-open .layout{
-  transform: translateX(var(--menu-w-desktop));
-}
-
-@media (max-width: 840px){
-  body.menu-open .layout{
-    transform: translateX(var(--menu-w-mobile));
-  }
-}
-
-/* ===== topbar ===== */
+/* ===== Top bar ===== */
 .topbar{
   position: fixed;
   inset:0 0 auto 0;
@@ -86,12 +52,6 @@ body.menu-open .layout{
 
   background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0));
   backdrop-filter: saturate(120%) blur(4px);
-
-  transition: transform .25s ease;
-}
-
-.topbar--hidden{
-  transform: translateY(-110%);
 }
 
 .topbar__left,
@@ -101,7 +61,7 @@ body.menu-open .layout{
   gap: 18px;
 }
 
-/* hamburger */
+/* CSS-only hamburger link */
 .hamburger{
   height: 44px;
   width: 44px;
@@ -114,6 +74,7 @@ body.menu-open .layout{
   font-size: 1.55rem;
   cursor:pointer;
   padding:0;
+  text-decoration:none;
 }
 
 .hamburger:hover{ opacity:.85; }
@@ -124,7 +85,7 @@ body.menu-open .layout{
   border-radius: 10px;
 }
 
-/* search icon button (not “buttony”) */
+/* Search icon button */
 .navicon{
   height: 44px;
   width: 44px;
@@ -151,14 +112,14 @@ body.menu-open .layout{
   border-radius: 10px;
 }
 
-/* nav links (bigger font) */
+/* Nav links (bigger font) */
 .navlink{
   position: relative;
   display: inline-block;
   padding: 8px 0;
   color: rgba(255,255,255,.90);
   text-decoration: none;
-  font-size: 1.18rem;   /* bigger than before */
+  font-size: 1.18rem;
   letter-spacing: .01em;
 }
 
@@ -185,7 +146,7 @@ body.menu-open .layout{
 
 .navlink:focus-visible{ outline:none; }
 
-/* ===== off-canvas menu (2-column) ===== */
+/* ===== Menu (CSS only) ===== */
 .menu{
   position: fixed;
   top:0; left:0;
@@ -199,8 +160,19 @@ body.menu-open .layout{
   overflow: hidden;
 }
 
-body.menu-open .menu{
+/* When URL hash is #menu */
+#menu:target{
   transform: translateX(0);
+}
+
+/* Push page when menu open */
+.layout{
+  transition: transform .35s ease;
+  will-change: transform;
+}
+
+#menu:target ~ .layout{
+  transform: translateX(var(--menu-w-desktop));
 }
 
 @media (max-width: 840px){
@@ -208,28 +180,30 @@ body.menu-open .menu{
     width: var(--menu-w-mobile);
     max-width: none;
   }
-}
 
-.menu__inner{
-  height: 100%;
+  #menu:target ~ .layout{
+    transform: translateX(var(--menu-w-mobile));
+  }
 }
 
 .menu__grid{
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr 1.25fr; /* right side a bit wider like screenshot */
+  grid-template-columns: 1fr 1.25fr;
 }
 
 .menu__col{
   padding: calc(var(--nav-h) + 28px) 34px 30px;
 }
 
-.menu__col--left{
-  background: var(--menu-bg);
-}
+.menu__col--left{ background: var(--menu-bg); }
+.menu__col--right{ background: var(--menu-bg2); }
 
-.menu__col--right{
-  background: var(--menu-bg2);
+.menu__top{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .menu__title{
@@ -239,36 +213,16 @@ body.menu-open .menu{
   color: var(--menu-dim);
 }
 
-.menu__section{
-  display: block;
-  width: 100%;
-  padding: 14px 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-
-  font-size: 1.9rem;
-  font-weight: 520;
-  color: var(--menu-dim);
-  letter-spacing: .01em;
-}
-
-.menu__section:hover{
-  color: var(--menu-text);
-  text-decoration: underline;
-  text-underline-offset: 8px;
-  text-decoration-thickness: 2px;
-}
-
-.menu__section.is-active{
-  color: var(--menu-text);
-}
-
-.menu__section:focus-visible{
-  outline: 3px solid rgba(255,255,255,.22);
-  outline-offset: 6px;
+.menu__close{
+  color: rgba(255,255,255,.85);
+  text-decoration:none;
+  font-size: 1.25rem;
+  padding: 8px 10px;
   border-radius: 10px;
+}
+
+.menu__close:hover{
+  background: rgba(255,255,255,.08);
 }
 
 .menu__direct{
@@ -294,11 +248,16 @@ body.menu-open .menu{
   border-radius: 10px;
 }
 
+.menu__spacer{ height: 22px; }
 
-.menu__spacer{
-  height: 22px;
+.menu__label{
+  margin: 14px 0 0;
+  font-size: 1.9rem;
+  font-weight: 520;
+  color: var(--menu-dim);
 }
 
+/* Right column */
 .menu__goto{
   margin: 0 0 22px;
   font-size: 1.15rem;
@@ -308,8 +267,13 @@ body.menu-open .menu{
   font-weight: 650;
 }
 
+.menu__panel{
+  display: grid;
+  gap: 26px;
+}
+
 .menu__panelTitle{
-  margin: 0 0 18px;
+  margin: 0 0 14px;
   font-size: 1.45rem;
   color: rgba(255,255,255,.90);
   font-weight: 600;
@@ -334,7 +298,39 @@ body.menu-open .menu{
   text-decoration-thickness: 2px;
 }
 
-/* ===== search modal ===== */
+/* Menu overlay (CSS only) */
+.menu-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 55;
+}
+
+#menu:target ~ .menu-overlay{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== Search overlay (JS only) ===== */
+.search-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 65;
+}
+
+body.search-open .search-overlay{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== Search modal (JS only) ===== */
 .search{
   position: fixed;
   inset: 0;
@@ -400,13 +396,7 @@ body.search-open .search{
   outline: none;
 }
 
-.search__input:focus{
-  border-color: rgba(255,255,255,.35);
-}
-
-.search__results{
-  margin-top: 14px;
-}
+.search__results{ margin-top: 14px; }
 
 .search__list{
   list-style: none;
@@ -449,7 +439,7 @@ body.search-open .search{
   margin: 8px 2px;
 }
 
-/* ===== hero ===== */
+/* ===== Hero ===== */
 .hero{
   min-height: 100dvh;
   display:grid;
@@ -487,7 +477,7 @@ body.search-open .search{
   line-height: 1.55;
 }
 
-/* ===== main ===== */
+/* ===== Main ===== */
 main{
   background:#0f0f10;
   padding: 42px 18px 80px;
@@ -512,7 +502,7 @@ main{
   letter-spacing: .02em;
 }
 
-/* ===== cards ===== */
+/* ===== Cards ===== */
 .cards{
   display:grid;
   grid-template-columns: repeat(12, 1fr);
@@ -534,11 +524,6 @@ main{
   transform: translateY(-2px);
   background: rgba(255,255,255,.05);
   border-color: rgba(255,255,255,.22);
-}
-
-.card:focus-visible{
-  outline: 3px solid rgba(255,255,255,.28);
-  outline-offset: 2px;
 }
 
 .card-media{
@@ -574,11 +559,12 @@ main{
 @media (max-width: 840px){
   .card{ grid-column: span 12; }
   .card-media{ height:180px; }
+
   .menu__grid{ grid-template-columns: 1fr; }
   .menu__col--right{ border-top: 1px solid rgba(255,255,255,.14); }
 }
 
-/* ===== footer (simple) ===== */
+/* ===== Footer ===== */
 .site-footer{
   background:#0b0b0b;
   border-top: 1px solid rgba(255,255,255,.12);
@@ -624,7 +610,6 @@ main{
   transform: scaleX(1);
 }
 
-/* reduced motion */
 @media (prefers-reduced-motion: reduce){
-  .layout, .menu, .overlay, .topbar, .search{ transition:none; }
+  .menu, .menu-overlay, .layout, .search, .search-overlay { transition:none; }
 }
