@@ -68,7 +68,6 @@ body{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  border: none;
   background: transparent;
   color: rgba(255,255,255,.92);
   font-size: 1.55rem;
@@ -146,7 +145,11 @@ body{
 
 .navlink:focus-visible{ outline:none; }
 
-/* ===== Menu (CSS only) ===== */
+/* =========================================
+   MENU (CSS-only open with :target + tabs)
+   ========================================= */
+
+/* Off-canvas container */
 .menu{
   position: fixed;
   top:0; left:0;
@@ -186,6 +189,7 @@ body{
   }
 }
 
+/* Two column layout */
 .menu__grid{
   height: 100%;
   display: grid;
@@ -199,30 +203,19 @@ body{
 .menu__col--left{ background: var(--menu-bg); }
 .menu__col--right{ background: var(--menu-bg2); }
 
-.menu__top{
-  display:flex;
-  align-items:flex-start;
-  justify-content: space-between;
-  gap: 12px;
+/* Radios (tab state) are invisible */
+.menu-tab{
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
+/* Left column text */
 .menu__title{
   margin: 0 0 26px;
   font-size: 1.9rem;
   font-weight: 520;
   color: var(--menu-dim);
-}
-
-.menu__close{
-  color: rgba(255,255,255,.85);
-  text-decoration:none;
-  font-size: 1.25rem;
-  padding: 8px 10px;
-  border-radius: 10px;
-}
-
-.menu__close:hover{
-  background: rgba(255,255,255,.08);
 }
 
 .menu__direct{
@@ -250,11 +243,27 @@ body{
 
 .menu__spacer{ height: 22px; }
 
-.menu__label{
-  margin: 14px 0 0;
-  font-size: 1.9rem;
-  font-weight: 520;
-  color: var(--menu-dim);
+/* The items that toggle the right column */
+.menu__toggle{
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Optional “clear selection” line */
+.menu__reset{
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,.70);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.menu__reset:hover{
+  color: rgba(255,255,255,.90);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
 }
 
 /* Right column */
@@ -267,11 +276,41 @@ body{
   font-weight: 650;
 }
 
-.menu__panel{
-  display: grid;
-  gap: 26px;
+/* Right column placeholder + panels behavior */
+.menu__placeholder{ display: block; }
+.menu__panel{ display: none; }
+
+#tab-keynotes:checked ~ .menu__inner .menu__placeholder{ display:none; }
+#tab-keynotes:checked ~ .menu__inner .menu__panel--keynotes{ display:block; }
+
+#tab-attendees:checked ~ .menu__inner .menu__placeholder{ display:none; }
+#tab-attendees:checked ~ .menu__inner .menu__panel--attendees{ display:block; }
+
+/* Active underline in left column for toggles */
+#tab-keynotes:checked ~ .menu__inner label[for="tab-keynotes"],
+#tab-attendees:checked ~ .menu__inner label[for="tab-attendees"]{
+  color: var(--menu-text);
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-thickness: 2px;
 }
 
+/* Placeholder styling */
+.menu__placeholderTitle{
+  margin: 0 0 10px;
+  font-size: 1.45rem;
+  font-weight: 650;
+  color: rgba(255,255,255,.90);
+}
+
+.menu__placeholderText{
+  margin: 0;
+  max-width: 38ch;
+  color: rgba(255,255,255,.75);
+  line-height: 1.6;
+}
+
+/* Panel styling */
 .menu__panelTitle{
   margin: 0 0 14px;
   font-size: 1.45rem;
@@ -298,7 +337,7 @@ body{
   text-decoration-thickness: 2px;
 }
 
-/* Menu overlay (CSS only) */
+/* Menu overlay (CSS only) — IMPORTANT: doesn’t block clicks when closed */
 .menu-overlay{
   position: fixed;
   inset: 0;
@@ -311,7 +350,7 @@ body{
 
 #menu:target ~ .menu-overlay{
   opacity: 1;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 /* ===== Search overlay (JS only) ===== */
@@ -327,7 +366,7 @@ body{
 
 body.search-open .search-overlay{
   opacity: 1;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 /* ===== Search modal (JS only) ===== */
@@ -345,19 +384,8 @@ body.search-open .search-overlay{
 
 body.search-open .search{
   opacity: 1;
-  pointer-events: none;
-}
-
-#menu:target ~ .menu-overlay{
-  opacity: 1;
   pointer-events: auto;
 }
-
-body.search-open .search-overlay{
-  opacity: 1;
-  pointer-events: auto;
-}
-
 
 .search__inner{
   width: min(860px, 92vw);
@@ -570,7 +598,6 @@ main{
 @media (max-width: 840px){
   .card{ grid-column: span 12; }
   .card-media{ height:180px; }
-
   .menu__grid{ grid-template-columns: 1fr; }
   .menu__col--right{ border-top: 1px solid rgba(255,255,255,.14); }
 }
