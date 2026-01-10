@@ -670,8 +670,8 @@ main{
   margin: 60px auto;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
-  background: #fff;
-  color: #222;
+  background: #000000;
+  color: #FFFFFF;
   border-radius: 28px;
   overflow: hidden; /* important for rounded corners */
   box-shadow: 0 20px 50px rgba(0,0,0,.15);
