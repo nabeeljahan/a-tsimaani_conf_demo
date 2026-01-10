@@ -662,6 +662,72 @@ main{
 }
 
 /* =========================
+   KEYNOTE PROFILE CARD
+   ========================= */
+
+.profile-card{
+  max-width: 1100px;
+  margin: 60px auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  background: #fff;
+  color: #222;
+  border-radius: 28px;
+  overflow: hidden; /* important for rounded corners */
+  box-shadow: 0 20px 50px rgba(0,0,0,.15);
+}
+
+/* Image column */
+.profile-card__image{
+  background-size: cover;
+  background-position: center;
+  min-height: 420px;
+}
+
+/* Text column */
+.profile-card__content{
+  padding: 48px 46px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Name */
+.profile-card__name{
+  margin: 0 0 18px;
+  font-size: 2.4rem;
+  font-weight: 650;
+  line-height: 1.1;
+}
+
+/* Paragraph spacing */
+.profile-card__content p{
+  margin: 0 0 16px;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px){
+  .profile-card{
+    grid-template-columns: 1fr;
+  }
+
+  .profile-card__image{
+    min-height: 320px;
+  }
+
+  .profile-card__content{
+    padding: 36px 28px;
+  }
+
+  .profile-card__name{
+    font-size: 2rem;
+  }
+}
+
+
+/* =========================
    FOOTER
    ========================= */
 .site-footer{
