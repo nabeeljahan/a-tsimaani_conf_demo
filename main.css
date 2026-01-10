@@ -149,7 +149,7 @@ body{
 
 /* =========================
    MENU (CSS-only open with :target + tab radios)
-   IMPORTANT: Full top-to-bottom on all screens
+   Clean: full height, NO middle scrollbar
    ========================= */
 
 /* Off-canvas container */
@@ -166,13 +166,14 @@ body{
   z-index: 60;
   box-shadow: var(--shadow);
 
-  overflow: hidden;         /* keep edges clean */
+  /* KEY CHANGE: one scrollbar for the whole menu */
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* When URL hash is #menu */
-#menu:target{
-  transform: translateX(0);
-}
+#menu:target{ transform: translateX(0); }
 
 /* Push page when menu open */
 .layout{
@@ -182,6 +183,189 @@ body{
 
 #menu:target ~ .layout{
   transform: translateX(var(--menu-w-desktop));
+}
+
+@media (max-width: 840px){
+  .menu{ width: var(--menu-w-mobile); max-width: none; }
+  #menu:target ~ .layout{ transform: translateX(var(--menu-w-mobile)); }
+}
+
+/* Make inner stretch but DO NOT create per-column scrollbars */
+.menu__inner{ min-height: 100%; }
+.menu__grid{
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+}
+
+/* Columns are full height visually, but they do NOT scroll */
+.menu__col{
+  padding: 38px 34px 28px;
+  overflow: visible;
+}
+
+/* Slightly tighter padding on short viewports */
+@media (max-height: 760px){
+  .menu__col{ padding: 24px 28px 20px; }
+}
+
+.menu__col--left{ background: var(--menu-bg); }
+.menu__col--right{ background: var(--menu-bg2); }
+
+/* Radios (tab state) are invisible */
+.menu-tab{
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Left column title */
+.menu__title{
+  margin: 0 0 22px;
+  font-size: 1.9rem;
+  font-weight: 520;
+  color: var(--menu-dim);
+}
+
+/* Menu items: use clamp so they shrink on shorter screens */
+.menu__direct{
+  display:block;
+  padding: 14px 0;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+  font-weight: 520;
+  color: var(--menu-dim);
+  text-decoration: none;
+  letter-spacing: .01em;
+}
+
+.menu__direct:hover{
+  color: var(--menu-text);
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-thickness: 2px;
+}
+
+.menu__direct:focus-visible{
+  outline: 3px solid rgba(255,255,255,.22);
+  outline-offset: 6px;
+  border-radius: 10px;
+}
+
+.menu__spacer{ height: 22px; }
+
+.menu__toggle{
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Optional “clear selection” */
+.menu__reset{
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,.70);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.menu__reset:hover{
+  color: rgba(255,255,255,.90);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+
+/* Right column header */
+.menu__goto{
+  margin: 0 0 18px;
+  font-size: 1.05rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.78);
+  font-weight: 650;
+}
+
+/* Right column placeholder + panels behavior */
+.menu__placeholder{ display: block; }
+.menu__panel{ display: none; }
+
+#tab-keynotes:checked ~ .menu__inner .menu__placeholder{ display:none; }
+#tab-keynotes:checked ~ .menu__inner .menu__panel--keynotes{ display:block; }
+
+#tab-attendees:checked ~ .menu__inner .menu__placeholder{ display:none; }
+#tab-attendees:checked ~ .menu__inner .menu__panel--attendees{ display:block; }
+
+/* Active underline in left column for toggles */
+#tab-keynotes:checked ~ .menu__inner label[for="tab-keynotes"],
+#tab-attendees:checked ~ .menu__inner label[for="tab-attendees"]{
+  color: var(--menu-text);
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-thickness: 2px;
+}
+
+/* Placeholder styling */
+.menu__placeholderTitle{
+  margin: 0 0 10px;
+  font-size: 1.45rem;
+  font-weight: 650;
+  color: rgba(255,255,255,.90);
+}
+
+.menu__placeholderText{
+  margin: 0;
+  max-width: 38ch;
+  color: rgba(255,255,255,.75);
+  line-height: 1.6;
+}
+
+/* Panel styling */
+.menu__panelTitle{
+  margin: 0 0 14px;
+  font-size: 1.45rem;
+  color: rgba(255,255,255,.90);
+  font-weight: 600;
+}
+
+.menu__links{
+  display: grid;
+  gap: 12px;
+}
+
+.menu__linkItem{
+  display: inline-block;
+  font-size: 1.28rem;
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+  padding: 8px 0;
+}
+
+.menu__linkItem:hover{
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-thickness: 2px;
+}
+
+/* Mobile: stack columns */
+@media (max-width: 840px){
+  .menu__grid{ grid-template-columns: 1fr; }
+  .menu__col--right{ border-top: 1px solid rgba(255,255,255,.14); }
+}
+
+/* Menu overlay (CSS only) — IMPORTANT: doesn’t block clicks when closed */
+.menu-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 55;
+}
+
+#menu:target ~ .menu-overlay{
+  opacity: 1;
+  pointer-events: auto;
 }
 
 @media (max-width: 840px){
