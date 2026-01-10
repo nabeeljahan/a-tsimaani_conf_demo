@@ -197,7 +197,7 @@ body{
 }
 
 .menu__col{
-  padding: calc(var(--nav-h) + 28px) 34px 30px;
+  padding: calc(var(--nav-h) + 18px) 34px 22px; /* slightly tighter */
 }
 
 .menu__col--left{ background: var(--menu-bg); }
@@ -651,3 +651,32 @@ main{
 @media (prefers-reduced-motion: reduce){
   .menu, .menu-overlay, .layout, .search, .search-overlay { transition:none; }
 }
+
+@media (max-height: 760px){
+  .menu__col{
+    padding: calc(var(--nav-h) + 12px) 28px 18px;
+  }
+
+  .menu__title{
+    margin-bottom: 18px;
+    font-size: 1.65rem;
+  }
+
+  .menu__direct{
+    padding: 12px 0;
+    font-size: 1.65rem;
+  }
+
+  .menu__spacer{
+    height: 14px;
+  }
+
+  .menu__goto{
+    margin-bottom: 16px;
+  }
+
+  .menu__linkItem{
+    padding: 6px 0;
+  }
+}
+
