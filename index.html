@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,48 +11,63 @@
 
 <body>
 
-  <!-- OFF-CANVAS MENU (2-column like Rijks) -->
-  <nav class="menu" aria-label="Site menu" id="menu" aria-hidden="true">
+  <!-- OFF-CANVAS MENU (CSS only using :target) -->
+  <nav class="menu" id="menu" aria-label="Site menu" aria-hidden="true">
     <div class="menu__inner">
       <div class="menu__grid">
-        
-        <!-- Left column: sections -->
-        <div class="menu__col menu__col--left" aria-label="Menu sections">
-          <p class="menu__title">A'tsimaani</p>
-        
-          <!-- Direct links (no subpages) -->
-          <a class="menu__direct" href="program/">Program</a>
-          <a class="menu__direct" href="registration/">Registration</a>
-          <a class="menu__direct" href="theme/">Theme</a>
-          <a class="menu__direct" href="contact/">Contact</a>
-        
-          <div class="menu__spacer"></div>
-        
-          <!-- Tabs only for sections WITH subpages -->
-          <button class="menu__section is-active" type="button" data-section="keynotes" aria-current="true">
-            Keynote speakers
-          </button>
-          <button class="menu__section" type="button" data-section="attendees">
-            For attendees
-          </button>
-        </div>
 
-
-        <!-- Right column: links for selected section -->
-        <div class="menu__col menu__col--right" aria-label="Menu links">
-          <p class="menu__goto">GO TO</p>
-          <div class="menu__panel" id="menuPanel">
-            <!-- Filled by JS -->
+        <!-- Left column: direct links -->
+        <div class="menu__col menu__col--left">
+          <div class="menu__top">
+            <p class="menu__title">Menu</p>
+            <a class="menu__close" href="#close" aria-label="Close menu">✕</a>
           </div>
+
+          <a class="menu__direct" href="program/">Program</a>
+          <a class="menu__direct" href="theme/">Theme</a>
+          <a class="menu__direct" href="registration/">Registration</a>
+          <a class="menu__direct" href="contact/">Contact</a>
+
+          <div class="menu__spacer"></div>
+
+          <p class="menu__label">Keynote speakers</p>
+          <p class="menu__label">For attendees</p>
         </div>
+
+        <!-- Right column: only sections that actually have subpages -->
+        <div class="menu__col menu__col--right">
+          <p class="menu__goto">GO TO</p>
+
+          <div class="menu__panel">
+            <div class="menu__group">
+              <p class="menu__panelTitle">Keynote speakers</p>
+              <div class="menu__links">
+                <a class="menu__linkItem" href="keynote-speakers/">All keynote speakers</a>
+                <!-- Later add: keynote-speakers/name/ -->
+              </div>
+            </div>
+
+            <div class="menu__group">
+              <p class="menu__panelTitle">For attendees</p>
+              <div class="menu__links">
+                <a class="menu__linkItem" href="for-attendees/">Overview</a>
+                <a class="menu__linkItem" href="for-attendees/accommodations/">Accommodations</a>
+                <a class="menu__linkItem" href="for-attendees/financial-support/">Financial support</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </nav>
 
-  <!-- Dim overlay (also used for search) -->
-  <div class="overlay" id="overlay" tabindex="-1" aria-hidden="true"></div>
+  <!-- MENU OVERLAY (CSS only) -->
+  <a class="menu-overlay" href="#close" aria-label="Close menu overlay"></a>
+  <div id="close" aria-hidden="true"></div>
 
-  <!-- SEARCH MODAL -->
+  <!-- SEARCH MODAL (JS only for search) -->
   <div class="search" id="search" aria-hidden="true" role="dialog" aria-label="Search site">
     <div class="search__inner">
       <div class="search__top">
@@ -74,18 +88,20 @@
     </div>
   </div>
 
-  <!-- Everything that “pushes” right when menu opens -->
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true"></div>
+
+  <!-- PAGE CONTENT -->
   <div class="layout" id="layout">
 
     <!-- TOP BAR -->
-    <header class="topbar" id="topbar" role="banner">
+    <header class="topbar" role="banner">
       <div class="topbar__left">
-        <button class="hamburger" id="hamburger" type="button" aria-controls="menu" aria-expanded="false">
+        <!-- CSS-only hamburger -->
+        <a class="hamburger" href="#menu" aria-label="Open menu">
           <span aria-hidden="true">☰</span>
-          <span class="sr-only">Open menu</span>
-        </button>
+        </a>
 
-        <!-- Search icon (click opens modal) -->
+        <!-- Search icon (JS opens modal) -->
         <button class="navicon" id="searchBtn" type="button" aria-label="Search">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M10.5 3a7.5 7.5 0 1 0 4.61 13.42l4.24 4.24 1.41-1.41-4.24-4.24A7.5 7.5 0 0 0 10.5 3zm0 2a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11z"/>
@@ -114,12 +130,13 @@
     <main>
       <div class="wrap">
         <p class="blurb">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum justo eros, eu maximus 
-          felis sodales non. Sed vitae sagittis lacus, et suscipit tortor. Curabitur vulputate venenatis nibh, et 
-          egestas erat molestie vel. Cras lobortis tempor elit sit amet auctor. Phasellus non bibendum nisi. Curabitur 
-          congue, nunc fringilla vehicula blandit, lorem ante luctus nibh, eu mattis enim elit at dolor. Nam ornare in 
-          nulla a elementum. Sed condimentum consectetur ultrices. Fusce velit massa, dictum ac risus faucibus, egestas 
-          pretium nibh.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum 
+          justo eros, eu maximus felis sodales non. Sed vitae sagittis lacus, et suscipit 
+          tortor. Curabitur vulputate venenatis nibh, et egestas erat molestie vel. Cras 
+          lobortis tempor elit sit amet auctor. Phasellus non bibendum nisi. Curabitur congue, 
+          nunc fringilla vehicula blandit, lorem ante luctus nibh, eu mattis enim elit at dolor. 
+          Nam ornare in nulla a elementum. Sed condimentum consectetur ultrices. Fusce velit 
+          massa, dictum ac risus faucibus, egestas pretium nibh.
         </p>
 
         <h2 class="section-title">Explore</h2>
@@ -174,167 +191,21 @@
 
   </div><!-- /.layout -->
 
+  <!-- JS ONLY FOR SEARCH -->
   <script>
-    /***************
-     * MENU (2-col)
-     ***************/
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Search modal
     const body = document.body;
-    const hamburger = document.getElementById('hamburger');
-    const overlay = document.getElementById('overlay');
-    const menu = document.getElementById('menu');
-    const menuPanel = document.getElementById('menuPanel');
-    const sections = Array.from(document.querySelectorAll('.menu__section'));
-
-    // Define menu content for the right column
-    const menuData = {
-      program: {
-        heading: "Program",
-        links: [
-          { label: "Go to Program", href: "program/" }
-          // later: { label: "Schedule", href: "program/schedule/" }
-        ]
-      },
-      theme: {
-        heading: "Theme",
-        links: [
-          { label: "Go to Theme", href: "theme/" }
-        ]
-      },
-      registration: {
-        heading: "Registration",
-        links: [
-          { label: "Go to Registration", href: "registration/" }
-        ]
-      },
-      contact: {
-        heading: "Contact",
-        links: [
-          { label: "Go to Contact", href: "contact/" }
-        ]
-      },
-      keynotes: {
-        heading: "Keynote speakers",
-        links: [
-          { label: "All keynote speakers", href: "keynote-speakers/" }
-          // later: { label: "Speaker Name", href: "keynote-speakers/speaker-name/" }
-        ]
-      },
-      attendees: {
-        heading: "For attendees",
-        links: [
-          { label: "Overview", href: "for-attendees/" },
-          { label: "Accommodations", href: "for-attendees/accommodations/" },
-          { label: "Financial support", href: "for-attendees/financial-support/" }
-        ]
-      }
-    };
-
-    function renderMenuPanel(key) {
-      const data = menuData[key] || { heading: "", links: [] };
-      const html = `
-        <p class="menu__panelTitle">${data.heading}</p>
-        <div class="menu__links">
-          ${data.links.map(l => `<a class="menu__linkItem" href="${l.href}">${l.label}</a>`).join("")}
-        </div>
-      `;
-      menuPanel.innerHTML = html;
-    }
-
-    function setActiveSection(btn) {
-      sections.forEach(b => {
-        b.classList.remove('is-active');
-        b.removeAttribute('aria-current');
-      });
-      btn.classList.add('is-active');
-      btn.setAttribute('aria-current', 'true');
-      renderMenuPanel(btn.dataset.section);
-    }
-
-    // Initialize panel to first active
-    const initial = document.querySelector('.menu__section.is-active') || sections[0];
-    if (initial) renderMenuPanel(initial.dataset.section);
-
-    sections.forEach(btn => {
-      btn.addEventListener('click', () => setActiveSection(btn));
-    });
-
-    function setMenu(open){
-      body.classList.toggle('menu-open', open);
-      hamburger.setAttribute('aria-expanded', String(open));
-      menu.setAttribute('aria-hidden', String(!open));
-
-      if(open){
-        sections[0]?.focus();
-      }else{
-        hamburger.focus();
-      }
-    }
-
-    hamburger.addEventListener('click', () => setMenu(!body.classList.contains('menu-open')));
-    overlay.addEventListener('click', () => {
-      // overlay closes menu and search
-      setMenu(false);
-      setSearch(false);
-    });
-
-    window.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape'){
-        if (body.classList.contains('menu-open')) setMenu(false);
-        if (!document.getElementById('search').getAttribute('aria-hidden') === 'true') setSearch(false);
-        setSearch(false);
-      }
-    });
-
-    /*********************
-     * HEADER: show on up
-     *********************/
-    const topbar = document.getElementById('topbar');
-    let lastScrollY = window.scrollY;
-    let hidden = false;
-
-    function updateHeader(){
-      const y = window.scrollY;
-      const delta = y - lastScrollY;
-
-      // don't hide when menu/search is open
-      if (body.classList.contains('menu-open') || body.classList.contains('search-open')) {
-        topbar.classList.remove('topbar--hidden');
-        hidden = false;
-        lastScrollY = y;
-        return;
-      }
-
-      // small dead zone prevents flicker
-      if (Math.abs(delta) < 8) return;
-
-      // only start hiding after some scroll
-      const past = y > 120;
-
-      if (past && delta > 0 && !hidden) {
-        topbar.classList.add('topbar--hidden');
-        hidden = true;
-      } else if (delta < 0 && hidden) {
-        topbar.classList.remove('topbar--hidden');
-        hidden = false;
-      }
-
-      lastScrollY = y;
-    }
-
-    window.addEventListener('scroll', () => {
-      window.requestAnimationFrame(updateHeader);
-    }, { passive: true });
-
-    /********
-     * SEARCH
-     ********/
     const searchBtn = document.getElementById('searchBtn');
     const search = document.getElementById('search');
     const searchClose = document.getElementById('searchClose');
+    const searchOverlay = document.getElementById('searchOverlay');
     const searchInput = document.getElementById('searchInput');
     const searchResults = document.getElementById('searchResults');
 
-    // Minimal search index (add more entries as you add pages)
+    // Add pages here as you create them
     const searchIndex = [
       { title: "Home", url: "./", keywords: "conference homepage" },
       { title: "About", url: "about/", keywords: "about theme mission" },
@@ -347,18 +218,26 @@
       { title: "Financial support", url: "for-attendees/financial-support/", keywords: "funding bursary travel grant" }
     ];
 
-    function setSearch(open){
-      body.classList.toggle('search-open', open);
-      search.setAttribute('aria-hidden', String(!open));
-      topbar.classList.remove('topbar--hidden');
+    function openSearch() {
+      body.classList.add('search-open');
+      search.setAttribute('aria-hidden', 'false');
+      searchOverlay.setAttribute('aria-hidden', 'false');
+      searchInput.value = '';
+      searchResults.innerHTML = '';
+      searchInput.focus();
+    }
 
-      if(open){
-        searchInput.value = "";
-        searchResults.innerHTML = "";
-        searchInput.focus();
-      }else{
-        searchBtn.focus();
-      }
+    function closeSearch() {
+      body.classList.remove('search-open');
+      search.setAttribute('aria-hidden', 'true');
+      searchOverlay.setAttribute('aria-hidden', 'true');
+      searchBtn.focus();
+    }
+
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[s]));
     }
 
     function runSearch(q){
@@ -390,21 +269,14 @@
       `;
     }
 
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, s => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-      }[s]));
-    }
-
-    searchBtn.addEventListener('click', () => setSearch(true));
-    searchClose.addEventListener('click', () => setSearch(false));
-
+    searchBtn.addEventListener('click', openSearch);
+    searchClose.addEventListener('click', closeSearch);
+    searchOverlay.addEventListener('click', closeSearch);
     searchInput.addEventListener('input', (e) => runSearch(e.target.value));
 
-    /********
-     * Footer year
-     ********/
-    document.getElementById('year').textContent = new Date().getFullYear();
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && body.classList.contains('search-open')) closeSearch();
+    });
   </script>
 
 </body>
