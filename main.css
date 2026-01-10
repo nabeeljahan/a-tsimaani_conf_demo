@@ -654,8 +654,8 @@ main{
 
 @media (max-height: 760px){
   .menu__col{
-    padding: calc(var(--nav-h) + 12px) 28px 18px;
-  }
+    padding: calc(var(--nav-h) + 28px) 34px 30px; 
+}
 
   .menu__title{
     margin-bottom: 18px;
