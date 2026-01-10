@@ -16,33 +16,28 @@
   <nav class="menu" aria-label="Site menu" id="menu" aria-hidden="true">
     <div class="menu__inner">
       <div class="menu__grid">
+        
         <!-- Left column: sections -->
         <div class="menu__col menu__col--left" aria-label="Menu sections">
-          <p class="menu__title">Menu</p>
-
-          <!-- These are buttons for accessibility, but styled like text (not “buttony”). -->
-          <button class="menu__section is-active" type="button" data-section="program" aria-current="true">
-            Program
-          </button>
-          <button class="menu__section" type="button" data-section="theme">
-            Theme
-          </button>
-          <button class="menu__section" type="button" data-section="registration">
-            Registration
-          </button>
-          <button class="menu__section" type="button" data-section="contact">
-            Contact
-          </button>
-
+          <p class="menu__title">A'tsimaani</p>
+        
+          <!-- Direct links (no subpages) -->
+          <a class="menu__direct" href="program/">Program</a>
+          <a class="menu__direct" href="registration/">Registration</a>
+          <a class="menu__direct" href="theme/">Theme</a>
+          <a class="menu__direct" href="contact/">Contact</a>
+        
           <div class="menu__spacer"></div>
-
-          <button class="menu__section" type="button" data-section="keynotes">
+        
+          <!-- Tabs only for sections WITH subpages -->
+          <button class="menu__section is-active" type="button" data-section="keynotes" aria-current="true">
             Keynote speakers
           </button>
           <button class="menu__section" type="button" data-section="attendees">
             For attendees
           </button>
         </div>
+
 
         <!-- Right column: links for selected section -->
         <div class="menu__col menu__col--right" aria-label="Menu links">
@@ -109,9 +104,9 @@
     <!-- HERO -->
     <section class="hero" aria-label="Conference hero">
       <div class="hero-inner">
-        <p class="kicker">Conference • 2026</p>
-        <h1 class="title">Your Conference Name</h1>
-        <p class="subtitle">Optional short tagline goes here.</p>
+        <p class="kicker">Lethbridge • 2026</p>
+        <h1 class="title">A'tsimaani</h1>
+        <p class="subtitle">Slogan.</p>
       </div>
     </section>
 
@@ -119,8 +114,12 @@
     <main>
       <div class="wrap">
         <p class="blurb">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
-          dolore magna aliqua. (You’ll replace this later.)
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum justo eros, eu maximus 
+          felis sodales non. Sed vitae sagittis lacus, et suscipit tortor. Curabitur vulputate venenatis nibh, et 
+          egestas erat molestie vel. Cras lobortis tempor elit sit amet auctor. Phasellus non bibendum nisi. Curabitur 
+          congue, nunc fringilla vehicula blandit, lorem ante luctus nibh, eu mattis enim elit at dolor. Nam ornare in 
+          nulla a elementum. Sed condimentum consectetur ultrices. Fusce velit massa, dictum ac risus faucibus, egestas 
+          pretium nibh.
         </p>
 
         <h2 class="section-title">Explore</h2>
