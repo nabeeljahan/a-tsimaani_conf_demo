@@ -1,24 +1,25 @@
-/* main.css */
 :root{
-  --bg: #0b0b0b;
   --fg: #f5f5f5;
   --muted: rgba(255,255,255,.72);
-  --border: rgba(255,255,255,.18);
 
   --nav-h: 64px;
+  --accent: #d23b3b;
 
   /* Desktop: menu takes ~50% so hero remains visible */
   --menu-w-desktop: 50vw;
   /* Mobile: menu takes most of screen */
   --menu-w-mobile: 86vw;
 
-  --radius: 18px;
   --shadow: 0 12px 40px rgba(0,0,0,.35);
 
-  --accent: #d23b3b; /* active underline colour */
+  /* Menu colors (like your screenshot) */
+  --menu-bg: #4b5158;      /* slate */
+  --menu-bg2: #3f454c;     /* slightly darker */
+  --menu-text: rgba(255,255,255,.90);
+  --menu-dim: rgba(255,255,255,.70);
 }
 
-*{ box-sizing: border-box; }
+*{ box-sizing:border-box; }
 html,body{ height:100%; }
 
 body{
@@ -29,7 +30,6 @@ body{
   overflow-x:hidden;
 }
 
-/* ===== Utility ===== */
 .sr-only{
   position:absolute;
   width:1px; height:1px;
@@ -40,7 +40,24 @@ body{
   border:0;
 }
 
-/* ===== Layout push ===== */
+/* ===== overlay ===== */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .2s ease;
+  z-index:55;
+}
+
+body.menu-open .overlay,
+body.search-open .overlay{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* ===== push layout for menu ===== */
 .layout{
   transition: transform .35s ease;
   will-change: transform;
@@ -56,26 +73,10 @@ body.menu-open .layout{
   }
 }
 
-/* ===== Overlay ===== */
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  opacity:0;
-  pointer-events:none;
-  transition: opacity .25s ease;
-  z-index:55;
-}
-
-body.menu-open .overlay{
-  opacity:1;
-  pointer-events:auto;
-}
-
-/* ===== Top Nav ===== */
+/* ===== topbar ===== */
 .topbar{
   position: fixed;
-  inset: 0 0 auto 0;
+  inset:0 0 auto 0;
   height: var(--nav-h);
   display:flex;
   align-items:center;
@@ -100,48 +101,71 @@ body.menu-open .overlay{
   gap: 18px;
 }
 
-/* Hamburger icon: keep it minimal */
+/* hamburger */
 .hamburger{
-  height: 42px;
-  width: 42px;
+  height: 44px;
+  width: 44px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   border: none;
   background: transparent;
-  color: rgba(255,255,255,.9);
-  font-size: 1.4rem;
+  color: rgba(255,255,255,.92);
+  font-size: 1.55rem;
   cursor:pointer;
   padding:0;
 }
 
-.hamburger:hover{
-  opacity:.85;
-}
+.hamburger:hover{ opacity:.85; }
 
 .hamburger:focus-visible{
   outline: 3px solid rgba(255,255,255,.28);
   outline-offset: 3px;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
-/* Nav links with underline hover + active underline */
+/* search icon button (not “buttony”) */
+.navicon{
+  height: 44px;
+  width: 44px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navicon svg{
+  width: 22px;
+  height: 22px;
+  fill: rgba(255,255,255,.88);
+}
+
+.navicon:hover svg{ fill: rgba(255,255,255,.98); }
+
+.navicon:focus-visible{
+  outline: 3px solid rgba(255,255,255,.28);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+/* nav links (bigger font) */
 .navlink{
   position: relative;
   display: inline-block;
   padding: 8px 0;
-  color: rgba(255,255,255,.88);
+  color: rgba(255,255,255,.90);
   text-decoration: none;
-  font-size: 1.05rem;
+  font-size: 1.18rem;   /* bigger than before */
   letter-spacing: .01em;
 }
 
 .navlink::after{
   content:"";
   position:absolute;
-  left:0;
-  right:0;
-  bottom: 0;
+  left:0; right:0; bottom:0;
   height: 2px;
   background: rgba(255,255,255,.65);
   transform: scaleX(0);
@@ -159,24 +183,20 @@ body.menu-open .overlay{
   background: var(--accent);
 }
 
-.navlink:focus-visible{
-  outline:none;
-}
+.navlink:focus-visible{ outline:none; }
 
-/* ===== Off-canvas Menu ===== */
+/* ===== off-canvas menu (2-column) ===== */
 .menu{
   position: fixed;
   top:0; left:0;
   height: 100dvh;
   width: var(--menu-w-desktop);
-  max-width: 720px;
-  background: rgba(10,10,10,.96);
-  border-right: 1px solid rgba(255,255,255,.12);
+  max-width: 920px;
   transform: translateX(-105%);
   transition: transform .35s ease;
   z-index: 60;
-  overflow:auto;
   box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
 body.menu-open .menu{
@@ -184,76 +204,232 @@ body.menu-open .menu{
 }
 
 @media (max-width: 840px){
-  .menu{ width: var(--menu-w-mobile); }
+  .menu{
+    width: var(--menu-w-mobile);
+    max-width: none;
+  }
 }
 
 .menu__inner{
-  padding: calc(var(--nav-h) + 20px) 22px 28px;
+  height: 100%;
+}
+
+.menu__grid{
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr; /* right side a bit wider like screenshot */
+}
+
+.menu__col{
+  padding: calc(var(--nav-h) + 28px) 34px 30px;
+}
+
+.menu__col--left{
+  background: var(--menu-bg);
+}
+
+.menu__col--right{
+  background: var(--menu-bg2);
 }
 
 .menu__title{
-  margin: 0 0 18px;
-  font-size: 1.15rem;
-  color: rgba(255,255,255,.70);
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  margin: 0 0 26px;
+  font-size: 1.9rem;
+  font-weight: 520;
+  color: var(--menu-dim);
 }
 
-/* Main links */
-.menu__link{
-  display:block;
+.menu__section{
+  display: block;
+  width: 100%;
   padding: 14px 0;
-  font-size: 1.6rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+
+  font-size: 1.9rem;
+  font-weight: 520;
+  color: var(--menu-dim);
+  letter-spacing: .01em;
+}
+
+.menu__section:hover{
+  color: var(--menu-text);
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-thickness: 2px;
+}
+
+.menu__section.is-active{
+  color: var(--menu-text);
+}
+
+.menu__section:focus-visible{
+  outline: 3px solid rgba(255,255,255,.22);
+  outline-offset: 6px;
+  border-radius: 10px;
+}
+
+.menu__spacer{
+  height: 22px;
+}
+
+.menu__goto{
+  margin: 0 0 22px;
+  font-size: 1.15rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.78);
+  font-weight: 650;
+}
+
+.menu__panelTitle{
+  margin: 0 0 18px;
+  font-size: 1.45rem;
+  color: rgba(255,255,255,.90);
   font-weight: 600;
+}
+
+.menu__links{
+  display: grid;
+  gap: 12px;
+}
+
+.menu__linkItem{
+  display: inline-block;
+  font-size: 1.35rem;
   color: rgba(255,255,255,.92);
   text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,.10);
+  padding: 8px 0;
 }
 
-.menu__link:hover{
+.menu__linkItem:hover{
   text-decoration: underline;
-  text-underline-offset: 6px;
+  text-underline-offset: 8px;
   text-decoration-thickness: 2px;
 }
 
-/* Groups */
-.menu__group{
-  padding: 18px 0 6px;
+/* ===== search modal ===== */
+.search{
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: start center;
+  padding: calc(var(--nav-h) + 18px) 18px 18px;
+  z-index: 70;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
 }
 
-.menu__heading{
-  margin: 0 0 10px;
-  font-size: 1.1rem;
+body.search-open .search{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.search__inner{
+  width: min(860px, 92vw);
+  background: rgba(10,10,10,.94);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.search__top{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.search__title{
+  margin:0;
+  font-size: 1.25rem;
+  color: rgba(255,255,255,.85);
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,.68);
 }
 
-.menu__sublinks{
-  padding-left: 14px;
-  border-left: 1px solid rgba(255,255,255,.14);
+.search__close{
+  border:0;
+  background: transparent;
+  color: rgba(255,255,255,.85);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 10px;
 }
 
-.menu__sublink{
-  display:block;
-  padding: 10px 0;
-  font-size: 1.15rem;
-  color: rgba(255,255,255,.84);
-  text-decoration:none;
+.search__close:hover{ background: rgba(255,255,255,.06); }
+
+.search__input{
+  width: 100%;
+  font-size: 1.2rem;
+  padding: 14px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.92);
+  outline: none;
 }
 
-.menu__sublink:hover{
+.search__input:focus{
+  border-color: rgba(255,255,255,.35);
+}
+
+.search__results{
+  margin-top: 14px;
+}
+
+.search__list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.search__item{
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,.03);
+}
+
+.search__link{
+  display: inline-block;
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.search__link:hover{
   text-decoration: underline;
   text-underline-offset: 6px;
   text-decoration-thickness: 2px;
 }
 
-/* ===== Hero ===== */
+.search__url{
+  display:block;
+  margin-top: 4px;
+  color: rgba(255,255,255,.60);
+  font-size: .95rem;
+}
+
+.search__empty{
+  color: rgba(255,255,255,.70);
+  margin: 8px 2px;
+}
+
+/* ===== hero ===== */
 .hero{
   min-height: 100dvh;
-  position:relative;
   display:grid;
-  place-items:end start;
+  place-items: end start;
   padding: calc(var(--nav-h) + 42px) 18px 42px;
   background:
     linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.25) 45%, rgba(0,0,0,0)),
@@ -268,14 +444,14 @@ body.menu-open .menu{
   color: var(--muted);
   letter-spacing: .08em;
   text-transform: uppercase;
-  font-size: .85rem;
+  font-size: .9rem;
   margin: 0 0 10px;
 }
 
 .title{
   margin:0;
   font-weight: 650;
-  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
   line-height: 1.02;
 }
 
@@ -283,11 +459,11 @@ body.menu-open .menu{
   margin: 14px 0 0;
   max-width: 62ch;
   color: rgba(255,255,255,.82);
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   line-height: 1.55;
 }
 
-/* ===== Main content ===== */
+/* ===== main ===== */
 main{
   background:#0f0f10;
   padding: 42px 18px 80px;
@@ -312,7 +488,7 @@ main{
   letter-spacing: .02em;
 }
 
-/* ===== Cards ===== */
+/* ===== cards ===== */
 .cards{
   display:grid;
   grid-template-columns: repeat(12, 1fr);
@@ -322,7 +498,7 @@ main{
 .card{
   grid-column: span 6;
   border: 1px solid rgba(255,255,255,.14);
-  border-radius: var(--radius);
+  border-radius: 18px;
   background: rgba(255,255,255,.03);
   overflow:hidden;
   text-decoration:none;
@@ -374,63 +550,57 @@ main{
 @media (max-width: 840px){
   .card{ grid-column: span 12; }
   .card-media{ height:180px; }
+  .menu__grid{ grid-template-columns: 1fr; }
+  .menu__col--right{ border-top: 1px solid rgba(255,255,255,.14); }
 }
 
-/* ===== Footer ===== */
+/* ===== footer (simple) ===== */
 .site-footer{
   background:#0b0b0b;
   border-top: 1px solid rgba(255,255,255,.12);
-  padding: 42px 18px;
+  padding: 22px 18px;
 }
 
 .footer-inner{
   max-width: 1100px;
   margin: 0 auto;
   display:flex;
-  gap: 28px;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
-.footer-title{
-  margin:0 0 6px;
-  font-size: 1.25rem;
-  font-weight: 650;
-}
-
-.footer-muted{
+.footer-text{
   margin:0;
-  color: rgba(255,255,255,.68);
+  color: rgba(255,255,255,.70);
 }
 
-.footer-cols{
-  display:flex;
-  gap: 56px;
-  flex-wrap: wrap;
-}
-
-.footer-col a{
-  display:block;
+.footer-contact{
+  color: rgba(255,255,255,.88);
+  text-decoration: none;
+  position: relative;
   padding: 8px 0;
-  color: rgba(255,255,255,.82);
-  text-decoration:none;
+  font-size: 1.05rem;
 }
 
-.footer-col a:hover{
-  text-decoration: underline;
-  text-underline-offset: 6px;
-  text-decoration-thickness: 2px;
+.footer-contact::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height: 2px;
+  background: rgba(255,255,255,.65);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .16s ease;
 }
 
-.footer-heading{
-  margin: 0 0 10px;
-  color: rgba(255,255,255,.68);
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  font-size: .95rem;
+.footer-contact:hover::after,
+.footer-contact:focus-visible::after{
+  transform: scaleX(1);
 }
 
+/* reduced motion */
 @media (prefers-reduced-motion: reduce){
-  .menu, .layout, .overlay, .topbar{ transition:none; }
+  .layout, .menu, .overlay, .topbar, .search{ transition:none; }
 }
