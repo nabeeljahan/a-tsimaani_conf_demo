@@ -12,8 +12,8 @@
   --shadow: 0 12px 40px rgba(0,0,0,.35);
 
   /* Menu colors (Rijks-like slate) */
-  --menu-bg: #4b5158;
-  --menu-bg2: #3f454c;
+  --menu-bg: #E3A234;
+  --menu-bg2: #E6B767;
   --menu-text: rgba(255,255,255,.92);
   --menu-dim: rgba(255,255,255,.70);
 }
