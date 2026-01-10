@@ -1,95 +1,80 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>A'tsimaani Conference 2026</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="main.css" />
-    <link rel="icon" type="image/x-icon" href="img/logo.ico">
+  <title>A'tsimaani</title>
+
+  <link rel="stylesheet" href="main.css" />
+  <link rel="icon" type="image/x-icon" href="img/logo.ico">
 </head>
 
 <body>
+
   <!-- Off-canvas menu -->
   <nav class="menu" aria-label="Site menu" id="menu">
-    <h2>Menu</h2>
+    <div class="menu__inner">
+      <p class="menu__title">Menu</p>
 
-    <ul class="menu-list">
-      <li class="menu-item">
-        <a class="menu-link" href="program/">Program</a>
-      </li>
-      <li class="menu-item">
-        <a class="menu-link" href="theme/">Theme</a>
-      </li>
-      <li class="menu-item">
-        <a class="menu-link" href="registration/">Registration</a>
-      </li>
-      <li class="menu-item">
-        <a class="menu-link" href="contact/">Contact</a>
-      </li>
+      <a class="menu__link" href="program/">Program</a>
+      <a class="menu__link" href="theme/">Theme</a>
+      <a class="menu__link" href="registration/">Registration</a>
+      <a class="menu__link" href="contact/">Contact</a>
 
-      <li class="menu-item" data-dropdown>
-        <button class="menu-toggle" type="button" aria-expanded="false">
-          Keynote speakers
-          <span class="chev">▾</span>
-        </button>
-        <div class="submenu" role="group" aria-label="Keynote speakers submenu">
-          <!-- Later: add links like keynote-speakers/name/ -->
-          <a href="keynote-speakers/">All keynote speakers</a>
+      <div class="menu__group">
+        <p class="menu__heading">Keynote speakers</p>
+        <div class="menu__sublinks">
+          <a class="menu__sublink" href="keynote-speakers/">All keynote speakers</a>
+          <!-- later add: keynote-speakers/name/ -->
         </div>
-      </li>
+      </div>
 
-      <li class="menu-item" data-dropdown>
-        <button class="menu-toggle" type="button" aria-expanded="false">
-          For attendees
-          <span class="chev">▾</span>
-        </button>
-        <div class="submenu" role="group" aria-label="For attendees submenu">
-          <a href="for-attendees/accommodations/">Accommodations</a>
-          <a href="for-attendees/financial-support/">Financial support</a>
+      <div class="menu__group">
+        <p class="menu__heading">For attendees</p>
+        <div class="menu__sublinks">
+          <a class="menu__sublink" href="for-attendees/accommodations/">Accommodations</a>
+          <a class="menu__sublink" href="for-attendees/financial-support/">Financial support</a>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </nav>
 
   <div class="overlay" id="overlay" tabindex="-1" aria-hidden="true"></div>
 
   <!-- Everything that should "push" right -->
   <div class="layout" id="layout">
-    <header class="topbar" role="banner">
-      <div class="left">
-        <button class="iconbtn compact" id="hamburger" type="button" aria-controls="menu" aria-expanded="false">
-          <span class="icon" aria-hidden="true">☰</span>
+
+    <!-- Top navigation bar -->
+    <header class="topbar" id="topbar" role="banner">
+      <div class="topbar__left">
+        <button class="hamburger" id="hamburger" type="button" aria-controls="menu" aria-expanded="false">
+          <span aria-hidden="true">☰</span>
           <span class="sr-only">Open menu</span>
         </button>
 
-        <button class="iconbtn compact" type="button" aria-label="Search">
-          <span class="icon" aria-hidden="true">⌕</span>
-        </button>
-
-        <a class="iconbtn compact" href="./" aria-label="Home">
-          <span class="icon" aria-hidden="true">⌂</span>
-        </a>
+        <a class="navlink" href="search/" data-nav="search">Search</a>
+        <a class="navlink" href="./" aria-current="page" data-nav="home">Home</a>
       </div>
 
-      <div class="right">
-        <button class="iconbtn" type="button" aria-label="Language">
-          Language
-        </button>
-        <a class="iconbtn" href="about/">About</a>
+      <div class="topbar__right">
+        <a class="navlink" href="#" data-nav="language">EN</a>
+        <a class="navlink" href="about/" data-nav="about">About</a>
       </div>
     </header>
 
+    <!-- Hero -->
     <section class="hero" aria-label="Conference hero">
       <div class="hero-inner">
         <p class="kicker">Conference • 2026</p>
         <h1 class="title">Your Conference Name</h1>
         <p class="subtitle">
-          Optional one-line tagline here (you can remove this if you want it even cleaner).
+          Optional short tagline goes here.
         </p>
       </div>
     </section>
 
+    <!-- Main content -->
     <main>
       <div class="wrap">
         <p class="blurb">
@@ -98,6 +83,7 @@
         </p>
 
         <h2 class="section-title">Explore</h2>
+
         <div class="cards">
           <a class="card" href="keynote-speakers/">
             <div class="card-media" style='background-image:url("assets/card-keynotes.jpg")'></div>
@@ -145,19 +131,48 @@
         </div>
       </div>
     </main>
-  </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>
+          <p class="footer-title">Conference Name</p>
+          <p class="footer-muted">Location • Dates</p>
+        </div>
+
+        <div class="footer-cols">
+          <div class="footer-col">
+            <p class="footer-heading">Explore</p>
+            <a href="program/">Program</a>
+            <a href="registration/">Registration</a>
+            <a href="keynote-speakers/">Keynotes</a>
+          </div>
+
+          <div class="footer-col">
+            <p class="footer-heading">Attendees</p>
+            <a href="for-attendees/accommodations/">Accommodations</a>
+            <a href="for-attendees/financial-support/">Financial support</a>
+            <a href="contact/">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /.layout -->
 
   <script>
     const body = document.body;
     const hamburger = document.getElementById('hamburger');
     const overlay = document.getElementById('overlay');
+    const topbar = document.getElementById('topbar');
 
     function setMenu(open){
       body.classList.toggle('menu-open', open);
       hamburger.setAttribute('aria-expanded', String(open));
+      topbar.classList.remove('topbar--hidden');
+
       if(open){
-        // focus first focusable item in menu
-        const first = document.querySelector('.menu a, .menu button');
+        const first = document.querySelector('.menu a');
         first && first.focus();
       }else{
         hamburger.focus();
@@ -170,22 +185,43 @@
 
     overlay.addEventListener('click', () => setMenu(false));
 
-    // ESC closes menu
     window.addEventListener('keydown', (e) => {
       if(e.key === 'Escape' && body.classList.contains('menu-open')){
         setMenu(false);
       }
     });
 
-    // Dropdowns in menu
-    document.querySelectorAll('.menu-item[data-dropdown]').forEach(item => {
-      const btn = item.querySelector('.menu-toggle');
-      btn.addEventListener('click', () => {
-        const isOpen = item.getAttribute('data-open') === 'true';
-        item.setAttribute('data-open', String(!isOpen));
-        btn.setAttribute('aria-expanded', String(!isOpen));
-      });
-    });
+    // Reveal-on-scroll-up behavior
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    function onScroll(){
+      const y = window.scrollY;
+
+      if (body.classList.contains('menu-open')) {
+        topbar.classList.remove('topbar--hidden');
+        lastY = y;
+        ticking = false;
+        return;
+      }
+
+      const goingDown = y > lastY;
+      const pastHero = y > 120;
+
+      if (pastHero && goingDown) topbar.classList.add('topbar--hidden');
+      else topbar.classList.remove('topbar--hidden');
+
+      lastY = y;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if(!ticking){
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive: true });
   </script>
+
 </body>
 </html>
