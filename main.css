@@ -629,6 +629,104 @@ main{
 }
 
 /* =========================
+   CONTACT (layout upgrade)
+   ========================= */
+
+.contact-page{ max-width: 1100px; }
+
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 18px;
+  align-items: start;
+  margin-top: 18px;
+}
+
+.contact-card{
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 18px;
+  background: rgba(255,255,255,.03);
+  padding: 18px 18px 16px;
+}
+
+.contact-row{
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+
+.contact-row:last-of-type{
+  border-bottom: none;
+}
+
+.contact-label{
+  color: rgba(255,255,255,.72);
+  font-weight: 650;
+  letter-spacing: .02em;
+}
+
+.contact-value{
+  color: rgba(255,255,255,.90);
+  line-height: 1.6;
+}
+
+.contact-value a{
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.contact-value a::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-2px;
+  height:2px;
+  background: rgba(255,255,255,.55);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .16s ease;
+}
+
+.contact-value a:hover::after,
+.contact-value a:focus-visible::after{
+  transform: scaleX(1);
+}
+
+.contact-note{
+  margin: 14px 0 0;
+  color: rgba(255,255,255,.72);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* Make map match the grid and look intentional */
+.map-box{
+  margin: 0; /* override your previous margin in this context */
+}
+
+.map-box iframe{
+  height: 520px;
+}
+
+/* Responsive: stack neatly */
+@media (max-width: 900px){
+  .contact-grid{
+    grid-template-columns: 1fr;
+  }
+  .contact-row{
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .map-box iframe{
+    height: 420px;
+  }
+}
+
+
+/* =========================
    CARDS
    ========================= */
 .cards{
