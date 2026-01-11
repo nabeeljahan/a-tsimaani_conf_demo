@@ -158,55 +158,65 @@
 
     <!-- MAIN -->
 <main>
-  <div class="wrap contact-page">
-    <h1 class="section-title">Contact</h1>
+  <div class="wrap">
 
-    <p class="contact-intro">
-      For questions about A'tsimaani, registration, or participation, please contact the conference organizers.
-    </p>
+    <header class="page-head">
+      <h1 class="page-title">Contact</h1>
+      <p class="page-subtitle">
+        Questions about A’tsimaani, registration, or participation? Get in touch with the conference organizers.
+      </p>
+    </header>
 
-    <div class="contact-grid">
-      <!-- DETAILS CARD -->
-      <section class="contact-card" aria-label="Contact details">
-        <div class="contact-row">
-          <div class="contact-label">Email</div>
-          <div class="contact-value">
-            <a href="mailto:atsimaani@uleth.ca">atsimaani@uleth.ca</a>
-          </div>
+    <section class="contact-layout" aria-label="Contact information and map">
+
+      <!-- Left: Contact cards -->
+      <div class="contact-stack">
+
+        <div class="panel">
+          <h2 class="panel-title">Contact details</h2>
+
+          <dl class="meta-list">
+            <div class="meta-row">
+              <dt>Email</dt>
+              <dd><a class="textlink" href="mailto:atsimaani@uleth.ca">atsimaani@uleth.ca</a></dd>
+            </div>
+
+            <div class="meta-row">
+              <dt>Location</dt>
+              <dd>
+                University of Lethbridge<br>
+                4401 University Dr W<br>
+                Lethbridge, AB T1K 3M4
+              </dd>
+            </div>
+          </dl>
         </div>
 
-        <div class="contact-row">
-          <div class="contact-label">Conference dates</div>
-          <div class="contact-value">March 9–11, 2026</div>
+        <div class="panel panel--muted">
+          <h2 class="panel-title">Accessibility</h2>
+          <p class="panel-text">
+            If you have accessibility needs or require accommodations, please contact us in advance so we can support your participation.
+          </p>
         </div>
 
-        <div class="contact-row">
-          <div class="contact-label">Location</div>
-          <div class="contact-value">
-            University of Lethbridge<br>
-            Lethbridge, Alberta, Canada
-          </div>
+      </div>
+
+      <!-- Right: Map -->
+      <div class="panel map-panel">
+        <h2 class="panel-title">Map</h2>
+
+        <div class="map-box" role="region" aria-label="Conference location map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2581.7090482313038!2d-112.86269262413897!3d49.678619042637074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x536e862d04431e1b%3A0x90850efeb876872b!2sUniversity%20of%20Lethbridge!5e0!3m2!1sen!2sca!4v1768104114181!5m2!1sen!2sca"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="University of Lethbridge"
+          ></iframe>
         </div>
+    </section>
 
-        <p class="contact-note">
-          If you have accessibility needs or require accommodations, please contact us in advance so we can support your participation.
-        </p>
-      </section>
-
-      <!-- MAP CARD -->
-      <section class="map-box" role="region" aria-label="Conference location map">
-      <iframe
-        src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJGx5DBC2GblMRK4d2uP4OhZA&key=..."
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="University of Lethbridge"
-      ></iframe>
-      </section>
-    </div>
   </div>
 </main>
-
-
 
         <!-- FOOTER -->
     <footer class="site-footer">
