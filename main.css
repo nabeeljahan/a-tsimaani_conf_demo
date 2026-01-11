@@ -726,6 +726,23 @@ main{
   }
 }
 
+/* Google Form embed */
+.form-embed{
+  margin-top: 18px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.03);
+  box-shadow: 0 12px 40px rgba(0,0,0,.18);
+}
+
+.form-embed iframe{
+  width: 100%;
+  height: min(1100px, 85vh);
+  border: 0;
+  display: block;
+}
+
 
 /* =========================
    FOOTER
