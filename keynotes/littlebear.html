@@ -187,8 +187,105 @@
     </p>
   </div>
 </section>
-
     </main>
-  </div>
+
+        <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-text">© <span id="year"></span> A'tsimaani. All rights reserved.</p>
+        <a class="footer-contact" href="contact.html">Contact</a>
+      </div>
+    </footer>
+
+  </div><!-- /.layout -->
+
+  <!-- JS ONLY FOR SEARCH -->
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Search modal
+    const body = document.body;
+    const searchBtn = document.getElementById('searchBtn');
+    const search = document.getElementById('search');
+    const searchClose = document.getElementById('searchClose');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    // Add pages here as you create them
+    const searchIndex = [
+      { title: "Home", url: "./", keywords: "conference homepage" },
+      { title: "About", url: "about.html", keywords: "about theme mission" },
+      { title: "Program", url: "program.html", keywords: "schedule sessions panels workshop dinner lunch breakfast food banquet" },
+      { title: "Registration", url: "registration.html", keywords: "register fees deadlines" },
+      { title: "Contact", url: "contact.html", keywords: "email contact inge genee" },
+      { title: "Keynote speakers", url: "keynotes/overview.html", keywords: "keynotes speakers leroy littlebear niitsitapi ai abundance intelligence michael sullivan aiyana twigg weber" },
+      { title: "For attendees", url: "participants/overview.html", keywords: "travel accessibility accommodations support" },
+      { title: "Accommodations", url: "participants/accommodations.html", keywords: "hotel lodging stay" },
+      { title: "Financial support", url: "participants/financial.html", keywords: "funding bursary travel grant" }
+    ];
+
+    function openSearch() {
+      body.classList.add('search-open');
+      search.setAttribute('aria-hidden', 'false');
+      searchOverlay.setAttribute('aria-hidden', 'false');
+      searchInput.value = '';
+      searchResults.innerHTML = '';
+      searchInput.focus();
+    }
+
+    function closeSearch() {
+      body.classList.remove('search-open');
+      search.setAttribute('aria-hidden', 'true');
+      searchOverlay.setAttribute('aria-hidden', 'true');
+      searchBtn.focus();
+    }
+
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[s]));
+    }
+
+    function runSearch(q){
+      const query = q.trim().toLowerCase();
+      if(!query){
+        searchResults.innerHTML = "";
+        return;
+      }
+
+      const results = searchIndex.filter(item => {
+        const hay = (item.title + " " + item.keywords).toLowerCase();
+        return hay.includes(query);
+      }).slice(0, 12);
+
+      if(results.length === 0){
+        searchResults.innerHTML = `<p class="search__empty">No results for “${escapeHtml(q)}”.</p>`;
+        return;
+      }
+
+      searchResults.innerHTML = `
+        <ul class="search__list">
+          ${results.map(r => `
+            <li class="search__item">
+              <a class="search__link" href="${r.url}">${escapeHtml(r.title)}</a>
+              <span class="search__url">${escapeHtml(r.url)}</span>
+            </li>
+          `).join("")}
+        </ul>
+      `;
+    }
+
+    searchBtn.addEventListener('click', openSearch);
+    searchClose.addEventListener('click', closeSearch);
+    searchOverlay.addEventListener('click', closeSearch);
+    searchInput.addEventListener('input', (e) => runSearch(e.target.value));
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && body.classList.contains('search-open')) closeSearch();
+    });
+  </script>
+
 </body>
 </html>
