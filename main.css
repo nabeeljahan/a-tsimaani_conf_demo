@@ -589,97 +589,114 @@ main{
 }
 
 /* =========================
-   CONTACT PAGE (adds styles; does not change existing rules)
+   CONTACT PAGE (matches site style)
    ========================= */
-.contact-page{
-  max-width: 900px;
+
+.page-head{
+  margin: 10px 0 22px;
 }
 
-.contact-intro{
-  max-width: 60ch;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: rgba(255,255,255,.82);
-  margin: 0 0 28px;
-}
-
-.contact-details{
-  display: grid;
-  gap: 18px;
-  margin: 0 0 32px;
-}
-
-.contact-details p{
-  margin: 0;
-  font-size: 1.05rem;
-  color: rgba(255,255,255,.88);
-}
-
-.contact-details strong{
-  display: block;
+.page-title{
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 3.2vw, 2.6rem);
   font-weight: 650;
-  margin-bottom: 4px;
+  letter-spacing: .01em;
 }
 
-.contact-note{
-  max-width: 65ch;
-  margin: 26px 0 0;
-  font-size: 1rem;
-  color: rgba(255,255,255,.72);
+.page-subtitle{
+  margin: 0;
+  max-width: 70ch;
+  color: rgba(255,255,255,.78);
+  font-size: 1.05rem;
+  line-height: 1.65;
 }
 
-/* =========================
-   CONTACT (layout upgrade)
-   ========================= */
-
-.contact-page{ max-width: 1100px; }
-
-.contact-grid{
+/* Layout: info left, map right */
+.contact-layout{
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 18px;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 14px;
   align-items: start;
-  margin-top: 18px;
 }
 
-.contact-card{
+.contact-stack{
+  display: grid;
+  gap: 14px;
+}
+
+/* Panel = same visual language as cards/embeds */
+.panel{
   border: 1px solid rgba(255,255,255,.14);
   border-radius: 18px;
   background: rgba(255,255,255,.03);
   padding: 18px 18px 16px;
 }
 
-.contact-row{
+.panel--muted{
+  background: rgba(255,255,255,.02);
+}
+
+.panel-title{
+  margin: 0 0 12px;
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: .01em;
+}
+
+.panel-text{
+  margin: 0;
+  color: rgba(255,255,255,.78);
+  line-height: 1.65;
+}
+
+.panel-hint{
+  margin: 12px 2px 0;
+  color: rgba(255,255,255,.62);
+  font-size: .98rem;
+  line-height: 1.55;
+}
+
+/* Meta list: clean, modern label/value */
+.meta-list{
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.meta-row{
   display: grid;
   grid-template-columns: 160px 1fr;
   gap: 14px;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(255,255,255,.10);
+  padding: 10px 0;
+  border-top: 1px solid rgba(255,255,255,.10);
 }
 
-.contact-row:last-of-type{
-  border-bottom: none;
+.meta-row:first-child{
+  border-top: 0;
+  padding-top: 0;
 }
 
-.contact-label{
-  color: rgba(255,255,255,.72);
+.meta-row dt{
+  color: rgba(255,255,255,.62);
   font-weight: 650;
   letter-spacing: .02em;
 }
 
-.contact-value{
+.meta-row dd{
+  margin: 0;
   color: rgba(255,255,255,.90);
   line-height: 1.6;
 }
 
-.contact-value a{
+/* Reuse your underline-link language */
+.textlink{
   color: rgba(255,255,255,.92);
   text-decoration: none;
   position: relative;
   padding-bottom: 2px;
 }
 
-.contact-value a::after{
+.textlink::after{
   content:"";
   position:absolute;
   left:0; right:0; bottom:-2px;
@@ -690,41 +707,33 @@ main{
   transition: transform .16s ease;
 }
 
-.contact-value a:hover::after,
-.contact-value a:focus-visible::after{
+.textlink:hover::after,
+.textlink:focus-visible::after{
   transform: scaleX(1);
 }
 
-.contact-note{
-  margin: 14px 0 0;
-  color: rgba(255,255,255,.72);
-  line-height: 1.6;
-  font-size: 1rem;
+/* Map panel uses same panel spacing */
+.map-panel .map-box{
+  margin: 0; /* overrides your global margin so it sits neatly inside panel */
 }
 
-/* Make map match the grid and look intentional */
-.map-box{
-  margin: 0; /* override your previous margin in this context */
+.map-panel .map-box iframe{
+  height: 460px;
 }
 
-.map-box iframe{
-  height: 520px;
-}
-
-/* Responsive: stack neatly */
+/* Responsive */
 @media (max-width: 900px){
-  .contact-grid{
+  .contact-layout{
     grid-template-columns: 1fr;
   }
-  .contact-row{
+  .meta-row{
     grid-template-columns: 1fr;
     gap: 6px;
   }
-  .map-box iframe{
+  .map-panel .map-box iframe{
     height: 420px;
   }
 }
-
 
 /* =========================
    CARDS
