@@ -796,6 +796,33 @@ main{
   .card-media{ height:180px; }
 }
 
+/* =========================
+   CARDS — 3 across variant
+   (use: <div class="cards cards--three">)
+   ========================= */
+
+.cards.cards--three{
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.cards.cards--three .card{
+  grid-column: span 4; /* 12 / 3 = 4 */
+}
+
+/* Tablet: 2 across */
+@media (max-width: 980px){
+  .cards.cards--three .card{
+    grid-column: span 6;
+  }
+}
+
+/* Mobile: 1 across */
+@media (max-width: 840px){
+  .cards.cards--three .card{
+    grid-column: span 12;
+  }
+}
+
 /* ===== Land Acknowledgement Block ===== */
 .land-acknowledgement {
   max-width: 800px;
