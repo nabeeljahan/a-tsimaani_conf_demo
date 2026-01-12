@@ -1,0 +1,325 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>A'tsimaani</title>
+
+  <link rel="stylesheet" href="../main.css" />
+  <link rel="icon" type="image/x-icon" href="../img/logo.ico">
+</head>
+
+<body>
+
+  <!-- OFF-CANVAS MENU (CSS only using :target) -->
+<nav class="menu" id="menu" aria-label="Site menu" aria-hidden="true">
+  <!-- CSS-only “tabs” (radios) -->
+  <input class="menu-tab" type="radio" name="menuTab" id="tab-none" checked>
+  <input class="menu-tab" type="radio" name="menuTab" id="tab-keynotes">
+  <input class="menu-tab" type="radio" name="menuTab" id="tab-attendees">
+
+  <div class="menu__inner">
+    <div class="menu__grid">
+
+      <!-- LEFT COLUMN: all main pages -->
+      <div class="menu__col menu__col--left" aria-label="Menu sections">
+        <p class="menu__title">A'tsimaani</p>
+
+        <!-- Direct pages (no submenus) -->
+        <a class="menu__direct" href="../index.html">Home</a>
+        <a class="menu__direct" href="../about.html">About</a>
+        <a class="menu__direct" href="../registration.html">Registration</a> 
+        <a class="menu__direct" href="../program.html">Program</a>
+        <a class="menu__direct" href="../contact.html">Contact</a>
+
+        <div class="menu__spacer"></div>
+
+        <!-- Pages WITH submenus: labels that switch the right column -->
+        <label class="menu__direct menu__toggle" for="tab-keynotes">Keynote speakers</label>
+        <label class="menu__direct menu__toggle" for="tab-attendees">For participants</label>
+
+        <!-- Optional “reset” (subtle) -->
+        <label class="menu__reset" for="tab-none">Clear selection</label>
+      </div>
+
+      <!-- RIGHT COLUMN: placeholder + submenu panels -->
+      <div class="menu__col menu__col--right" aria-label="Menu links">
+        <p class="menu__goto">GO TO</p>
+
+        <!-- Placeholder when nothing is selected -->
+        <div class="menu__placeholder">
+          <p class="menu__placeholderTitle">Explore the conference</p>
+          <p class="menu__placeholderText">
+            Select a section on the left to see related pages.
+          </p>
+        </div>
+
+        <!-- Keynotes panel -->
+        <div class="menu__panel menu__panel--keynotes">
+          <p class="menu__panelTitle">Keynote speakers</p>
+          <div class="menu__links">
+            <a class="menu__linkItem" href="overview.html">Overview</a>
+            <a class="menu__linkItem" href="littlebear.html">Leroy Little Bear</a>
+            <a class="menu__linkItem" href="sullivan.html">Michael Migizi Sullivan</a>
+            <a class="menu__linkItem" href="niitsitapi.html">Niitsitapi Pod Abundant Intelligence Group</a>
+            <a class="menu__linkItem" href="weber.html">Natalie Weber</a>
+            <a class="menu__linkItem" href="twigg.html">Aiyana Twigg</a>
+          </div>
+        </div>
+
+        <!-- Participants panel -->
+        <div class="menu__panel menu__panel--attendees">
+          <p class="menu__panelTitle">For participants</p>
+          <div class="menu__links">
+            <a class="menu__linkItem" href="../participants/overview.html">Overview</a>
+            <a class="menu__linkItem" href="../participants/accommodations.html/">Accommodations</a>
+            <a class="menu__linkItem" href="../participants/lethbridge.html/">Staying in Lethbridge</a>
+            <a class="menu__linkItem" href="../participants/financial.html/">Financial Support</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <!-- MENU OVERLAY (CSS only) -->
+  <a class="menu-overlay" href="#close" aria-label="Close menu overlay"></a>
+  <div id="close" aria-hidden="true"></div>
+
+  <!-- SEARCH MODAL (JS only for search) -->
+  <div class="search" id="search" aria-hidden="true" role="dialog" aria-label="Search site">
+    <div class="search__inner">
+      <div class="search__top">
+        <p class="search__title">Search</p>
+        <button class="search__close" id="searchClose" type="button" aria-label="Close search">✕</button>
+      </div>
+
+      <label class="sr-only" for="searchInput">Search</label>
+      <input
+        id="searchInput"
+        class="search__input"
+        type="search"
+        placeholder="Search the site…"
+        autocomplete="off"
+      />
+
+      <div class="search__results" id="searchResults" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true"></div>
+
+  <!-- PAGE CONTENT -->
+  <div class="layout" id="layout">
+
+    <!-- TOP BAR -->
+    <header class="topbar" role="banner">
+      <div class="topbar__left">
+        <!-- CSS-only hamburger -->
+        <a class="hamburger" href="#menu" aria-label="Open menu">
+          <span aria-hidden="true">☰</span>
+        </a>
+
+        <!-- Search icon (JS opens modal) -->
+        <button class="navicon" id="searchBtn" type="button" aria-label="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M10.5 3a7.5 7.5 0 1 0 4.61 13.42l4.24 4.24 1.41-1.41-4.24-4.24A7.5 7.5 0 0 0 10.5 3zm0 2a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11z"/>
+          </svg>
+        </button>
+
+        <a class="navlink" href="../index.html">Home</a>
+        <a class="navlink" href="../about.html">About</a>
+      </div>
+    </header>
+
+<section
+  class="hero hero--profile"
+  aria-label="Keynote profile hero"
+  style="
+    background:
+      linear-gradient(
+        to top,
+        rgba(0,0,0,.75),
+        rgba(0,0,0,.35) 45%,
+        rgba(0,0,0,0)
+      ),
+      url('../img/coulee.jpg') center / cover no-repeat;
+  "
+>
+
+      <div class="hero-inner">
+        <p class="kicker">Lethbridge • 2026</p>
+        <h1 class="title">A'tsimaani</h1>
+        <p class="subtitle">Slogan.</p>
+      </div>
+    </section>
+
+    <!-- MAIN -->
+    <main>
+<!-- KEYNOTE OVERVIEW (put this inside <main> … </main>) -->
+<div class="wrap">
+
+  <div class="page-head">
+    <h1 class="page-title">Keynote speakers</h1>
+    <p class="page-subtitle">
+      Meet our keynote speakers and view their abstracts and bios.
+    </p>
+  </div>
+
+  <!-- 3-across card grid -->
+  <div class="cards cards--three">
+
+    <a class="card" href="littlebear.html">
+      <div class="card-media" style='background-image:url("../img/bridge.jpg")'></div>
+      <div class="card-body">
+        <h3 class="card-title">Leroy Little Bear</h3>
+        <p class="card-text">Bio and abstract.</p>
+        <div class="card-meta"><span>Keynote</span><span aria-hidden="true">→</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="sullivan.html">
+      <div class="card-media" style='background-image:url("../img/green.jpg")'></div>
+      <div class="card-body">
+        <h3 class="card-title">Michael Migizi Sullivan</h3>
+        <p class="card-text">Bio and abstract.</p>
+        <div class="card-meta"><span>Keynote</span><span aria-hidden="true">→</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="niitsitapi.html">
+      <div class="card-media" style='background-image:url("../img/train.jpg")'></div>
+      <div class="card-body">
+        <h3 class="card-title">Niitsitapi Pod Abundant Intelligence Group</h3>
+        <p class="card-text">Bio and abstract.</p>
+        <div class="card-meta"><span>Keynote</span><span aria-hidden="true">→</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="weber.html">
+      <div class="card-media" style='background-image:url("../img/water.jpg")'></div>
+      <div class="card-body">
+        <h3 class="card-title">Natalie Weber</h3>
+        <p class="card-text">Bio and abstract.</p>
+        <div class="card-meta"><span>Keynote</span><span aria-hidden="true">→</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="twigg.html">
+      <div class="card-media" style='background-image:url("../img/bridge.jpg")'></div>
+      <div class="card-body">
+        <h3 class="card-title">Aiyana Twigg</h3>
+        <p class="card-text">Bio and abstract.</p>
+        <div class="card-meta"><span>Keynote</span><span aria-hidden="true">→</span></div>
+      </div>
+    </a>
+
+  </div>
+
+</div>
+
+    </main>
+
+        <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-text">© <span id="year"></span> A'tsimaani. All rights reserved.</p>
+        <a class="footer-contact" href="../contact.html">Contact</a>
+      </div>
+    </footer>
+
+  </div><!-- /.layout -->
+
+  <!-- JS ONLY FOR SEARCH -->
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Search modal
+    const body = document.body;
+    const searchBtn = document.getElementById('searchBtn');
+    const search = document.getElementById('search');
+    const searchClose = document.getElementById('searchClose');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    // Add pages here as you create them
+    const searchIndex = [
+      { title: "Home", url: "./", keywords: "conference homepage" },
+      { title: "About", url: "about.html", keywords: "about theme mission" },
+      { title: "Program", url: "program.html", keywords: "schedule sessions panels workshop dinner lunch breakfast food banquet" },
+      { title: "Registration", url: "registration.html", keywords: "register fees deadlines" },
+      { title: "Contact", url: "contact.html", keywords: "email contact inge genee" },
+      { title: "Keynote speakers", url: "keynotes/overview.html", keywords: "keynotes speakers leroy little Bear niitsitapi ai abundance intelligence michael sullivan aiyana twigg weber" },
+      { title: "For attendees", url: "participants/overview.html", keywords: "travel accessibility accommodations support" },
+      { title: "Accommodations", url: "participants/accommodations.html", keywords: "hotel lodging stay" },
+      { title: "Financial support", url: "participants/financial.html", keywords: "funding bursary travel grant" }
+    ];
+
+    function openSearch() {
+      body.classList.add('search-open');
+      search.setAttribute('aria-hidden', 'false');
+      searchOverlay.setAttribute('aria-hidden', 'false');
+      searchInput.value = '';
+      searchResults.innerHTML = '';
+      searchInput.focus();
+    }
+
+    function closeSearch() {
+      body.classList.remove('search-open');
+      search.setAttribute('aria-hidden', 'true');
+      searchOverlay.setAttribute('aria-hidden', 'true');
+      searchBtn.focus();
+    }
+
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, s => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[s]));
+    }
+
+    function runSearch(q){
+      const query = q.trim().toLowerCase();
+      if(!query){
+        searchResults.innerHTML = "";
+        return;
+      }
+
+      const results = searchIndex.filter(item => {
+        const hay = (item.title + " " + item.keywords).toLowerCase();
+        return hay.includes(query);
+      }).slice(0, 12);
+
+      if(results.length === 0){
+        searchResults.innerHTML = `<p class="search__empty">No results for “${escapeHtml(q)}”.</p>`;
+        return;
+      }
+
+      searchResults.innerHTML = `
+        <ul class="search__list">
+          ${results.map(r => `
+            <li class="search__item">
+              <a class="search__link" href="${r.url}">${escapeHtml(r.title)}</a>
+              <span class="search__url">${escapeHtml(r.url)}</span>
+            </li>
+          `).join("")}
+        </ul>
+      `;
+    }
+
+    searchBtn.addEventListener('click', openSearch);
+    searchClose.addEventListener('click', closeSearch);
+    searchOverlay.addEventListener('click', closeSearch);
+    searchInput.addEventListener('input', (e) => runSearch(e.target.value));
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && body.classList.contains('search-open')) closeSearch();
+    });
+  </script>
+
+</body>
+</html>
